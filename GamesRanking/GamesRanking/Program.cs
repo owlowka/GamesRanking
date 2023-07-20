@@ -1,45 +1,54 @@
 ﻿using GamesRanking.Repositories;
 using GamesRanking.Entities;
 using GamesRanking.Data;
+using System.ComponentModel;
+using GamesRanking;
 
-var gameRepository = new SqlRepository<Game>(new GamesRankingDbContext());
-
-AddGames(gameRepository);
-AddVirtual(gameRepository);
-AddAnalog(gameRepository);
-WriteAllToConsole(gameRepository);
-
-static void AddGames(IRepository<Game> gameRepository)
+internal class Program
 {
-    gameRepository.Add(new Game { Name = "Tennis" });
-    gameRepository.Add(new Game { Name = "Chess" });
-    gameRepository.Add(new Game { Name = "Poker" });
-    gameRepository.Save();
-}
-
-static void AddVirtual(IWriteRepository<Virtual> virtualRepository)
-{
-    virtualRepository.Add(new Virtual { Name = "Horizon" });
-    virtualRepository.Add(new Virtual { Name = "Hogwarts Legacy" });
-    virtualRepository.Add(new Virtual { Name = "Hunt" });
-    virtualRepository.Save();
-}
-
-static void AddAnalog(IWriteRepository<Analog> analogRepository)
-{
-    analogRepository.Add(new Analog { Name = "Talisman" });
-    analogRepository.Add(new Analog { Name = "Witcher" });
-    analogRepository.Add(new Analog { Name = "ExitRoom" });
-    analogRepository.Save();
-}
-
-static void WriteAllToConsole(IReadRepository<IEntity> repository)
-{
-    var items = repository.GetAll();
-    foreach (var item in items)
+    private static void Main(string[] args)
     {
-        Console.WriteLine(item);
+        Console.WriteLine($"|---------------------------GAMES RANKING--------------------------|");
+        Console.WriteLine();
+        Console.WriteLine($"(1) Display all games ranking ");
+        Console.WriteLine($"(2) Display analog games ranking ");
+        Console.WriteLine($"(3) Display virtual games ranking ");
+        Console.WriteLine($"(+) Add game ");
+        Console.WriteLine($"(-) Remove game ");
+        Console.WriteLine($"(s) Save ");
+        Console.WriteLine($"(q) Quit ");
+        Console.WriteLine();
+        Console.WriteLine($"|---Select action. To confirm press Enter.---|");
+        Console.WriteLine();
+
+        Scenarios();
+
+        static void Scenarios()
+        {
+            string fileName = "GameRanking.json";
+            string auditFile = "AuditFile.json";
+
+            IRepository<Audit> auditRepository = new FileRepository<Audit>(auditFile);
+
+            IRepository<Game> gameRepository = new FileRepository<Game>(fileName);
+
+            RepositoryAuditSubscriber<Game> repositorySubscriber =
+                new RepositoryAuditSubscriber<Game>(auditRepository, gameRepository);
+
+            repositorySubscriber.Subscribe();
+
+            gameRepository.ItemAdded += Logic.HandleItemAdded;
+            string userInput;
+
+
+
+            do
+            {
+                userInput = Console.ReadLine();
+                char.TryParse(userInput, out char result);
+                Logic.SelectAction(result, gameRepository);
+            }
+            while (userInput != "q");
+        }
     }
 }
-
-Console.ReadLine();

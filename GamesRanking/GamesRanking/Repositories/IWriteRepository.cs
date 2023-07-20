@@ -1,5 +1,4 @@
-﻿
-using GamesRanking.Data;
+﻿using GamesRanking.Data;
 using GamesRanking.Entities;
 
 namespace GamesRanking.Repositories

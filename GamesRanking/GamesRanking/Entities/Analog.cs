@@ -1,8 +1,7 @@
-﻿
-namespace GamesRanking.Entities
+﻿namespace GamesRanking.Entities
 {
     public class Analog : Game
     {
-        public override string ToString() => $"{base.ToString()} Type: Analog";
+        //public override string ToString() => $"{base.ToString()}, Analog";
     }
 }
