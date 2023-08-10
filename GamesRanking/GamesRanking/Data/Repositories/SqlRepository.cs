@@ -1,5 +1,5 @@
 ﻿
-//namespace GamesRanking.Repositories
+//namespace GamesRanking.DisplayMenu
 //{
 //    using Microsoft.EntityFrameworkCore;
 //    using GamesRanking.Entities;

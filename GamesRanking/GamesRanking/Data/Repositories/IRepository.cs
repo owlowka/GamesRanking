@@ -1,14 +1,15 @@
 ﻿using GamesRanking.Data;
-using GamesRanking.Entities;
+using GamesRanking.Data.Entities;
 
-namespace GamesRanking.Repositories
+namespace GamesRanking.Data.Repositories
 {
     public interface IRepository<TEntity> : IReadRepository<TEntity>, IWriteRepository<TEntity>
         where TEntity : class, IEntity
     {
         public event EventHandler<TEntity>? ItemAdded;
 
-        public event EventHandler? Saved;
+        public event EventHandler<TEntity>? ItemRemoved;
 
+        public event EventHandler? Saved;
     }
 }

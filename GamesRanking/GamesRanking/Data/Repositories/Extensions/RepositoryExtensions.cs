@@ -1,6 +1,6 @@
-﻿using GamesRanking.Entities;
+﻿using GamesRanking.Data.Entities;
 
-namespace GamesRanking.Repositories;
+namespace GamesRanking.Data.Repositories.Extensions;
 
 public static class RepositoryExtensions
 {

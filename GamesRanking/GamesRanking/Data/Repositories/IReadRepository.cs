@@ -1,7 +1,7 @@
 ﻿using GamesRanking.Data;
-using GamesRanking.Entities;
+using GamesRanking.Data.Entities;
 
-namespace GamesRanking.Repositories
+namespace GamesRanking.Data.Repositories
 {
     public interface IReadRepository<out TEntity> where TEntity : class, IEntity
     {

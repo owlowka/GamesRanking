@@ -1,4 +1,4 @@
-﻿namespace GamesRanking.Entities
+﻿namespace GamesRanking.Data.Entities
 {
     public interface IEntity
     {

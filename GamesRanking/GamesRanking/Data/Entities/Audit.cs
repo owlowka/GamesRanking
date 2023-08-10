@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GamesRanking.Entities
+namespace GamesRanking.Data.Entities
 {
     public class Audit : EntityBase
     {

@@ -1,7 +1,6 @@
-﻿
-using GamesRanking.Entities;
+﻿using GamesRanking.Data.Entities;
 
-namespace GamesRanking.Repositories
+namespace GamesRanking.Data.Repositories
 {
     public class ListRepository<TEntity> : RepositoryBase<TEntity> where TEntity : class, IEntity, new()
 

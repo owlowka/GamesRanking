@@ -1,5 +1,4 @@
-﻿
-namespace GamesRanking.Entities
+﻿namespace GamesRanking.Data.Entities
 {
     public abstract class EntityBase : IEntity
     {

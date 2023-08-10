@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace GamesRanking.Entities.Extensions
+namespace GamesRanking.Data.Entities.Extensions
 {
     public static class EntityExtensions
     {
