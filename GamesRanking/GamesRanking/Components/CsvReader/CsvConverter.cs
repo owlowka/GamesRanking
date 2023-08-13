@@ -1,15 +1,8 @@
-﻿//using GamesRanking.Entities;
-//using System.Xml.Linq;
+﻿//using GamesRanking.Data.Entities;
 
 //namespace GamesRanking
 //{
-//    public interface ICsvConverter<T>
-//    {
-//        T Deserialize(string text);
-//        string Serialize(T @object);
-//    }
-
-//    public class GameCsvConverter : ICsvConverter<Game>
+//    public class CsvConverter : ISerializer<Game>
 //    {
 //        public string Serialize(Game game)
 //        {
@@ -21,7 +14,7 @@
 
 //            string name = game.Name;
 //            int? id = game.Id;
-            
+
 //            return $"{id},{type}, {name}";
 //        }
 

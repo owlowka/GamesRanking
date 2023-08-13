@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using GamesRanking.Configuration;
-using System.Runtime.CompilerServices;
 using GamesRanking.App;
 using GamesRanking.Components.DataProviders;
-using GamesRanking.Data.Entities;
 using GamesRanking.Data.Repositories;
 using GamesRanking.UserCommunication;
 using GamesRanking.Components.Subscribers;
+using GamesRanking.Components.CsvReader;
 
 DependencyInjection();
 
@@ -20,6 +19,7 @@ static void DependencyInjection()
     services.AddSingleton(new FileRepositoryOptions());
     services.AddSingleton(typeof(IRepository<>), typeof(FileRepository<>));
     services.AddSingleton<IGamesProvider, GamesProvider>();
+    services.AddSingleton<ICsvReader, CsvReader>();
     services.AddSingleton<IApp, App>();
     services.AddSingleton<IViewManager, ConsoleViewManager>();
 

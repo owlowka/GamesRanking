@@ -14,7 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Files\" />
+    <ProjectReference Include="..\GamesRanking.Data\GamesRanking.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Files\bgg_dataset.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -72,7 +72,10 @@ namespace GamesRanking.Components.DataProviders
             var games = _gamesRepository.GetAll();
 
             return games
-                .Select(x => x.Type ?? "no type")
+                .Select(x =>
+                {
+                    return x.Type ?? "no type";
+                })
                 .Distinct()
                 .OrderBy(x => x)
                 .ToList();
