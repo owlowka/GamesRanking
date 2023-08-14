@@ -9,7 +9,6 @@ using GamesRanking.Components.CsvReader;
 
 DependencyInjection();
 
-Console.ReadLine();
 static void DependencyInjection()
 {
     var services = new ServiceCollection();

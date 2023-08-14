@@ -1,6 +1,6 @@
 ﻿using GamesRanking.Components.CsvReader.Models;
 using GamesRanking.Components.CsvReader;
-using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 
 namespace GamesRanking.App;
 public class App : IApp
@@ -15,86 +15,55 @@ public class App : IApp
 
     public void Run()
     {
-        List<Game>? games = _csvReader.ProcessGames("C:\\repos\\GamesRanking\\GamesRanking\\GamesRanking\\Resources\\Files\\bgg_dataset.csv");
-        List<YearStats>? years = _csvReader.ProcessPublishedYears("C:\\repos\\GamesRanking\\GamesRanking\\GamesRanking\\Resources\\Files\\game_data.csv");
-
-        DisplayAgePlayersAndAvg(games);
-        DisplayGamesByYearAndAverage(games, years);
-        DisplayGamesByYearCountAndAvg(games, years);
-
+        CreateXml();
+        QueryXml();
     }
 
-    private static void DisplayGamesByYearCountAndAvg(List<Game> games, List<YearStats> years)
+    private static void QueryXml()
     {
-        var groups = years.GroupJoin(
-            games,
-            year => year.Year,
-            game => game.YearPublished,
-            (stats, games) =>
-            new
-            {
-                Stats = stats,
-                Games = games
-            })
-            .OrderBy(group => group.Stats.Year)
-            .Take(100);
+        var document = XDocument.Load("bgg_dataset.xml");
+        var names = document
+            .Element("Games")?
+            .Elements("Game")
+            .Where(x => x.Attribute("YearPublished")?.Value == "2020")
+            .Select(x => x.Attribute("Name")?.Value);
 
-        foreach (var group in groups)
+        foreach (var name in names)
         {
-            Console.WriteLine($"Year: {group.Stats.Year}");
-            Console.WriteLine($"\t Games: {group.Games.Count()}");
-            Console.WriteLine($"\t Avgs");
-            Console.WriteLine($"\t Max: {group.Games.Max(x => x.ComplexityAverage)}");
-            Console.WriteLine($"\t Min: {group.Games.Min(x => x.ComplexityAverage)}");
-            Console.WriteLine($"\t Avg: {group.Games.Average(x => x.ComplexityAverage)}");
-            Console.WriteLine();
+            Console.WriteLine(name);
         }
     }
 
-    public static void DisplayAgePlayersAndAvg(List<Game>? games)
+    private void CreateXml()
     {
-        var groups = games
-                    .GroupBy(group => group.MinPlayers)
-                    .Select(games =>
-                        new
-                        {
-                            Name = games.Key,
-                            Min = games.Min(c => c.MinAge),
-                            Avg = games.Max(c => c.ComplexityAverage),
-                        })
-                        .OrderBy(group => group.Min);
+        List<Game> games = _csvReader.ProcessGames("C:\\repos\\GamesRanking\\GamesRanking\\GamesRanking\\Resources\\Files\\bgg_dataset.csv");
 
-        foreach (var group in groups)
-        {
-            Console.WriteLine($"Min Players {group.Name}");
-            Console.WriteLine($"\t Min Age {group.Min}");
-            Console.WriteLine($"\t Avg {group.Avg}");
-        }
+        var document = new XDocument();
+        var xmlGames = new XElement("Games", games
+            .Select(game =>
+                new XElement("Game",
+                    CreateAttribute("Id", game.Id),
+                    CreateAttribute("Name", game.Name),
+                    CreateAttribute("YearPublished", game.YearPublished),
+                    CreateAttribute("MinPlayers", game.MinPlayers),
+                    CreateAttribute("MaxPlayers", game.MaxPlayers),
+                    CreateAttribute("PlayTime", game.PlayTime),
+                    CreateAttribute("MinAge", game.MinAge),
+                    CreateAttribute("UsersRated", game.UsersRated),
+                    CreateAttribute("RatingAverage", game.RatingAverage),
+                    CreateAttribute("BggRank", game.BggRank),
+                    CreateAttribute("ComplexityAverage", game.ComplexityAverage),
+                    CreateAttribute("OwnedUsers", game.OwnedUsers),
+                    CreateAttribute("Mechanics", game.Mechanics),
+                    CreateAttribute("Domains", game.Domains)
+                )));
+
+        document.Add(xmlGames);
+        document.Save("bgg_dataset.xml");
     }
 
-    private static void DisplayGamesByYearAndAverage(List<Game> games, List<YearStats> years)
+    public static XAttribute CreateAttribute(string attributeName, object value)
     {
-        var gamesAveragePerYear = games.Join(
-            years,
-            x => x.YearPublished,
-            x => x.Year,
-            (game, year) =>
-                new
-                {
-                    game.Name,
-                    game.YearPublished,
-                    game.RatingAverage,
-                    year.Average
-                })
-            .OrderBy(x => x.YearPublished)
-            .ThenBy(x => x.Average)
-            .ThenBy(x => x.RatingAverage);
-
-        foreach (var game in gamesAveragePerYear)
-        {
-            Console.WriteLine($"Year: {game.YearPublished} AvgPerY: {game.Average}");
-            Console.WriteLine($"Game Name: {game.Name} AvgGame {game.RatingAverage}");
-            Console.WriteLine();
-        }
+        return new XAttribute(attributeName, value ?? String.Empty);
     }
 }
