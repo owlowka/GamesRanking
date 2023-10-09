@@ -1,6 +1,6 @@
 ﻿namespace GamesRanking.Data.Entities
 {
-    public class User : EntityBase
+    public record User : EntityBase
     {
         public string Name { get; set; }
 

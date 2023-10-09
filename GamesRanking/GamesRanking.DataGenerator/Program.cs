@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Globalization;
+﻿using System.Globalization;
 using Bogus;
 
 using CsvHelper;
@@ -7,18 +6,15 @@ using CsvHelper.Configuration;
 
 using GamesRanking.Data.Entities;
 
-Console.WriteLine("Hello, World!");
-
-
-IList<PublishedYear> years = new List<PublishedYear>()
+IList<YearStats> years = new List<YearStats>()
 {
-    new PublishedYear
+    new YearStats
     {
         Id = 1
     }
 };
 
-var faker = new Faker<PublishedYear>();
+var faker = new Faker<YearStats>();
 
 faker.RuleFor(year => year.Number, f =>
     f.Date

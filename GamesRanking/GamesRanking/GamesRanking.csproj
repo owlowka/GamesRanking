@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0-preview.5.23280.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.5.23280.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.6.23329.7" />
   </ItemGroup>
 
@@ -18,8 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\Files\bgg_dataset.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="1_DataAccess\Resources\Files\bgg_dataset.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="1_DataAccess\Resources\Files\game_data.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

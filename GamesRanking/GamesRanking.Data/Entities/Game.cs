@@ -1,55 +1,33 @@
 ﻿namespace GamesRanking.Data.Entities
 {
-    //[JsonPolymorphic(TypeDiscriminatorPropertyName = "Type")]
-    //[JsonDerivedType(typeof(Analog), nameof(Analog))]
-    //[JsonDerivedType(typeof(Virtual), nameof(Virtual))]
-    public class Game : EntityBase
+    public record Game : EntityBase
     {
-        public string Name { get; set; } = "no name";
+        //public int Id { get; set; }
 
-        public int? PlayersCount { get; set; }
+        public string? Name { get; set; }
 
-        public int? PlayerAge { get; set; }
+        public int? YearPublished { get; set; }
 
-        public string Type { get; set; }
+        public int? MinPlayers { get; set; }
 
-        public string Kind { get; set; }
+        public int? MaxPlayers { get; set; }
 
-        public double? AvgScore { get; set; }
+        public int? PlayTime { get; set; }
 
+        public int? MinAge { get; set; }
 
-        // Calculated Properties
-        public double? TotalScore { get; set; }
+        public double? UsersRated { get; set; }
 
-        public static Game Create(string type, string name)
-        {
-            Game game = type switch
-            {
-                "virtual" => new Game(),
-                "analog" => new Game(),
-                _ => new Game()
-            };
+        public double? RatingAverage { get; set; }
 
-            game.Name = name;
+        public double? BggRank { get; set; }
 
-            return game;
-        }
-        public override string ToString()
-        {
-            var name = $"{char.ToUpper(Name[0])}{Name[1..]}";
+        public double? ComplexityAverage { get; set; }
 
-            string text =
-                $"""
+        public int? OwnedUsers { get; set; }
 
-                {name} (name) | {Type ?? "no type"} (type)"
-                {Id} (id)
-                {AvgScore} (avgScore)
-                {PlayersCount} (players)
-                {PlayerAge} (age)
+        public string[]? Mechanics { get; set; }
 
-                """;
-
-            return text;
-        }
+        public string[]? Domains { get; set; }
     }
 }

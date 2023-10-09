@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesRanking.DataGenerator", "GamesRanking.DataGenerator\GamesRanking.DataGenerator.csproj", "{073D34CA-6304-48A2-823C-1DE5B2396F70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesRanking.DataGenerator", "GamesRanking.DataGenerator\GamesRanking.DataGenerator.csproj", "{073D34CA-6304-48A2-823C-1DE5B2396F70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesRanking.Data", "GamesRanking.Data\GamesRanking.Data.csproj", "{2C13543D-8651-4F63-8C35-39435A3C1FA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesRanking.Data", "GamesRanking.Data\GamesRanking.Data.csproj", "{2C13543D-8651-4F63-8C35-39435A3C1FA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
